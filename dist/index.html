@@ -7,7 +7,17 @@
     <title>To Do</title>
 </head>
 <body>
-    <div id="main"></div>
+    <div id="main">
+        <button id="add-to-do">Add todo</button>
+        <form id="add-to-do-form" class="hidden">
+            <label>
+                Add
+                <button type="submit" id="submit-to-do">+</button>
+            </label>
+            <input type="text" id="description" name="description" required>
+        </form>
+        <ul id="to-do-list"></ul>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
