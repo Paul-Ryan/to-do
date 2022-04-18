@@ -2,13 +2,13 @@ interface Props {
     description: string
 }
 
-export type todo = {
+export type ToDo = {
     description: string
 }
 
 // factory function to create to dos
-const ToDo = ({description}: Props): todo => {
+const buildToDo = ({description}: Props): ToDo => {
     return {description}
 }
 
-export default ToDo;
+export default buildToDo;

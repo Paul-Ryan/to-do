@@ -1,7 +1,7 @@
-import ToDo, {todo} from './todo'
+import {ToDo} from './todo'
 
 const App = () => {
-    const currentToDoList = [] as todo[] 
+    const currentToDoList = [] as ToDo[] 
     const projects = []
     let showToDo = false;
 

@@ -1,8 +1,8 @@
 import './home.css'
-import {todo} from '../application-logic/todo'
+import {ToDo} from '../application-logic/todo'
 
 interface Props {
-    currentToDoList: todo[]
+    currentToDoList: ToDo[]
     handleSubmitToDo: (description: string) => void
 }
 
@@ -16,15 +16,22 @@ export const home = ({currentToDoList, handleSubmitToDo}: Props): {buildHome: ()
         addToDoForm.classList.toggle('hidden')
     }
 
-    const buildToDo = (todo: todo) => {
+    const buildToDo = (todo: ToDo) => {
         const newToDoNode =  document.createElement("div")
         newToDoNode.textContent = todo.description 
     
         toDoListNode.appendChild(newToDoNode)
     }
     
-    const buildToDoList = (toDoList: todo[]) => {
+    const buildToDoList = (toDoList: ToDo[]) => {
+        clearToDoList();
         toDoList.forEach(buildToDo)
+    }
+
+    const clearToDoList = () => {
+        while (toDoListNode.firstChild) {
+            toDoListNode.removeChild(toDoListNode.firstChild);
+          }
     }
 
     const submitToDo = (e: Event) => {
