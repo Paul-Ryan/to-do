@@ -1,16 +1,26 @@
-import { ToDo } from "./todo";
+import buildProject from "./project";
+import buildToDo from "./todo";
 
 const App = () => {
-  const currentToDoList = [] as ToDo[];
-  const projects = [];
-  // let showToDo = false;
+  const defaultProject = buildProject("To do");
+  const projects = [defaultProject];
+  const currentProject = projects[0];
+  const currentToDoList = currentProject.getToDos();
 
-  const handleSubmitToDo = (description: string) => {
-    const newToDo = { description };
-    currentToDoList.push(newToDo);
+  const getCurrentToDoList = () => {
+    return currentToDoList;
   };
 
-  return { currentToDoList, handleSubmitToDo };
+  const getCurrentProjects = () => {
+    return projects;
+  };
+
+  const handleSubmitToDo = (description: string) => {
+    const newToDo = buildToDo({ description });
+    currentProject.addToDo(newToDo);
+  };
+
+  return { getCurrentToDoList, getCurrentProjects, handleSubmitToDo };
 };
 
 export default App;
