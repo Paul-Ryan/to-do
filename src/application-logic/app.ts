@@ -1,16 +1,16 @@
-import {ToDo} from './todo'
+import { ToDo } from "./todo";
 
 const App = () => {
-    const currentToDoList = [] as ToDo[] 
-    const projects = []
-    let showToDo = false;
+  const currentToDoList = [] as ToDo[];
+  const projects = [];
+  // let showToDo = false;
 
-    const handleSubmitToDo = (description: string) => {
-        const newToDo = {description}
-        currentToDoList.push(newToDo)
-    }
+  const handleSubmitToDo = (description: string) => {
+    const newToDo = { description };
+    currentToDoList.push(newToDo);
+  };
 
-    return {currentToDoList, handleSubmitToDo}
-}
+  return { currentToDoList, handleSubmitToDo };
+};
 
 export default App;
