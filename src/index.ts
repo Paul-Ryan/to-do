@@ -4,7 +4,8 @@ import App from "./application-logic/app";
 // set initial app state
 const {
   getCurrentToDoList,
-  getCurrentProjects,
+  getProjects,
+  handleSetCurrentProject,
   handleSubmitToDo,
   handleSubmitProject,
 } = App();
@@ -12,7 +13,8 @@ const {
 // setup events for homepage
 const { buildHome } = home({
   getCurrentToDoList,
-  getCurrentProjects,
+  getProjects,
+  handleSetCurrentProject,
   handleSubmitToDo,
   handleSubmitProject,
 });

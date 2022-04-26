@@ -4,7 +4,8 @@ import { Project } from "../application-logic/project";
 
 interface Props {
   getCurrentToDoList: () => ToDo[];
-  getCurrentProjects: () => Project[];
+  getProjects: () => Project[];
+  handleSetCurrentProject: (index: number) => void;
   handleSubmitToDo: (description: string) => void;
   handleSubmitProject: (name: string) => void;
 }
@@ -21,7 +22,8 @@ const addProjectForm =
 
 export const home = ({
   getCurrentToDoList,
-  getCurrentProjects,
+  getProjects,
+  handleSetCurrentProject,
   handleSubmitToDo,
   handleSubmitProject,
 }: Props): { buildHome: () => void } => {
@@ -31,9 +33,9 @@ export const home = ({
 
   const populateProjectList = (projects: Project[]) => {
     clearProjectList();
-    projects.forEach((project) => {
+    projects.forEach((project, idx) => {
       const newProjectOption = document.createElement("option");
-      newProjectOption.value = project.name;
+      newProjectOption.value = idx.toString();
       newProjectOption.textContent = project.name;
       projectSelect.appendChild(newProjectOption);
     });
@@ -80,7 +82,7 @@ export const home = ({
 
   const submitProject = (e: Event) => {
     e.preventDefault();
-    const projects = getCurrentProjects();
+    const projects = getProjects();
 
     // construct a FormData object, which fires the formdata event
     const formData = new FormData(addProjectForm);
@@ -90,12 +92,22 @@ export const home = ({
     populateProjectList(projects);
   };
 
+  const setCurrentProjectIndex = (e: Event) => {
+    const selectedProject = (<HTMLSelectElement>e.target).value;
+    handleSetCurrentProject(parseInt(selectedProject));
+    console.log("selcted idx", parseInt(selectedProject));
+
+    const currentToDoList = getCurrentToDoList();
+    buildToDoList(currentToDoList);
+  };
+
   const buildHome = () => {
-    const projects = getCurrentProjects();
+    const projects = getProjects();
     populateProjectList(projects);
     addToDo.addEventListener("click", toggleToDoForm);
     addToDoForm.addEventListener("submit", submitToDo);
     addProjectForm.addEventListener("submit", submitProject);
+    projectSelect.addEventListener("change", setCurrentProjectIndex);
   };
 
   return { buildHome };
