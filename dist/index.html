@@ -8,16 +8,23 @@
   </head>
   <body>
     <div id="main">
-      <select id="select-project">
-        <option value="test">Test</option>
-      </select>
+      <form id="add-project-form">
+        <button type="submit" id="add-project">add project</button>
+        <label>
+          Project Name
+          <input type="text" id="project-name" name="project-name" required />
+        </label>
+        <select id="select-project">
+          <option value="test">Test</option>
+        </select>
+      </form>
       <button id="add-to-do">Add todo</button>
       <form id="add-to-do-form" class="hidden">
         <label>
-          Add
-          <button type="submit" id="submit-to-do">+</button>
+          New To Do Description
+          <input type="text" id="description" name="description" required />
         </label>
-        <input type="text" id="description" name="description" required />
+        <button type="submit" id="submit-to-do">+</button>
       </form>
       <ul id="to-do-list"></ul>
     </div>

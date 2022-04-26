@@ -6,17 +6,24 @@ interface Props {
   getCurrentToDoList: () => ToDo[];
   getCurrentProjects: () => Project[];
   handleSubmitToDo: (description: string) => void;
+  handleSubmitProject: (name: string) => void;
 }
 
 const addToDo = document.querySelector("#add-to-do");
 const addToDoForm = document.querySelector<HTMLFormElement>("#add-to-do-form");
 const toDoListNode = document.querySelector("#to-do-list");
-const projectSelect = document.querySelector("#select-project");
+const projectNameInput =
+  document.querySelector<HTMLInputElement>("#project-name");
+const projectSelect =
+  document.querySelector<HTMLSelectElement>("#select-project");
+const addProjectForm =
+  document.querySelector<HTMLFormElement>("#add-project-form");
 
 export const home = ({
   getCurrentToDoList,
   getCurrentProjects,
   handleSubmitToDo,
+  handleSubmitProject,
 }: Props): { buildHome: () => void } => {
   const toggleToDoForm = () => {
     addToDoForm.classList.toggle("hidden");
@@ -33,9 +40,13 @@ export const home = ({
   };
 
   const clearProjectList = () => {
-    while (projectSelect.firstChild) {
-      projectSelect.removeChild(toDoListNode.firstChild);
+    while (projectSelect.length > 0) {
+      projectSelect.remove(projectSelect.length - 1);
     }
+  };
+
+  const clearProjectForm = () => {
+    projectNameInput.value = "";
   };
 
   const buildToDoNode = (todo: ToDo) => {
@@ -67,11 +78,24 @@ export const home = ({
     buildToDoList(currentToDoList);
   };
 
+  const submitProject = (e: Event) => {
+    e.preventDefault();
+    const projects = getCurrentProjects();
+
+    // construct a FormData object, which fires the formdata event
+    const formData = new FormData(addProjectForm);
+    const name = formData.get("project-name").toString();
+    clearProjectForm();
+    handleSubmitProject(name);
+    populateProjectList(projects);
+  };
+
   const buildHome = () => {
     const projects = getCurrentProjects();
     populateProjectList(projects);
     addToDo.addEventListener("click", toggleToDoForm);
     addToDoForm.addEventListener("submit", submitToDo);
+    addProjectForm.addEventListener("submit", submitProject);
   };
 
   return { buildHome };

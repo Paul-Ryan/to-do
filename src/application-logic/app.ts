@@ -4,8 +4,8 @@ import buildToDo from "./todo";
 const App = () => {
   const defaultProject = buildProject("To do");
   const projects = [defaultProject];
-  const currentProject = projects[0];
-  const currentToDoList = currentProject.getToDos();
+  let currentProjectIdx = 0;
+  const currentToDoList = projects[currentProjectIdx].getToDos();
 
   const getCurrentToDoList = () => {
     return currentToDoList;
@@ -17,10 +17,26 @@ const App = () => {
 
   const handleSubmitToDo = (description: string) => {
     const newToDo = buildToDo({ description });
-    currentProject.addToDo(newToDo);
+    projects[currentProjectIdx].addToDo(newToDo);
   };
 
-  return { getCurrentToDoList, getCurrentProjects, handleSubmitToDo };
+  const handleSetCurrentProject = (projectIdx: number) => {
+    if (projects.length < projectIdx) {
+      currentProjectIdx = projectIdx;
+    }
+  };
+
+  const handleSubmitProject = (name: string) => {
+    const newProject = buildProject(name);
+    projects.push(newProject);
+  };
+
+  return {
+    getCurrentToDoList,
+    getCurrentProjects,
+    handleSubmitToDo,
+    handleSubmitProject,
+  };
 };
 
 export default App;
