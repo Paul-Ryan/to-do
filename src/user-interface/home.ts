@@ -1,3 +1,5 @@
+import "./reset.css";
+import "./typography.css";
 import "./home.css";
 import { ToDo } from "../application-logic/todo";
 import { Project } from "../application-logic/project";
@@ -54,6 +56,7 @@ export const home = ({
   const buildToDoNode = (todo: ToDo) => {
     const newToDoNode = document.createElement("div");
     newToDoNode.textContent = todo.description;
+    newToDoNode.classList.add("to-do");
 
     toDoListNode.appendChild(newToDoNode);
   };

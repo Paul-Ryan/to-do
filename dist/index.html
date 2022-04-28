@@ -9,24 +9,33 @@
   <body>
     <div id="main">
       <form id="add-project-form">
-        <button type="submit" id="add-project">add project</button>
-        <label>
-          Project Name
-          <input type="text" id="project-name" name="project-name" required />
-        </label>
+        <div id="add-project-header">
+          <label id="project-name-label">
+            <input
+              type="text"
+              id="project-name"
+              name="project-name"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <button type="submit" id="add-project">+</button>
+        </div>
         <select id="select-project">
           <option value="test">Test</option>
         </select>
       </form>
-      <button id="add-to-do">Add todo</button>
-      <form id="add-to-do-form" class="hidden">
-        <label>
-          New To Do Description
-          <input type="text" id="description" name="description" required />
-        </label>
-        <button type="submit" id="submit-to-do">+</button>
-      </form>
-      <ul id="to-do-list"></ul>
+      <div id="">
+        <button id="add-to-do">Add todo</button>
+        <form id="add-to-do-form" class="hidden">
+          <label>
+            New To Do Description
+            <input type="text" id="description" name="description" required />
+          </label>
+          <button type="submit" id="submit-to-do">+</button>
+        </form>
+        <ul id="to-do-list"></ul>
+      </div>
     </div>
     <script src="main.js"></script>
   </body>
