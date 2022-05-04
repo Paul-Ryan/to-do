@@ -17,10 +17,10 @@ const addToDoForm = document.querySelector<HTMLFormElement>("#add-to-do-form");
 const toDoListNode = document.querySelector("#to-do-list");
 const projectNameInput =
   document.querySelector<HTMLInputElement>("#project-name");
-const projectSelect =
-  document.querySelector<HTMLSelectElement>("#select-project");
-const addProjectForm =
-  document.querySelector<HTMLFormElement>("#add-project-form");
+const projectList = document.querySelector<HTMLSelectElement>("#project-list");
+const addProjectForm = document.querySelector<HTMLFormElement>("#add-project");
+const toggleAddProjectFormButton =
+  document.querySelector<HTMLFormElement>("#show-add-project");
 
 export const home = ({
   getCurrentToDoList,
@@ -33,25 +33,34 @@ export const home = ({
     addToDoForm.classList.toggle("hidden");
   };
 
+  // Project UI
+
   const populateProjectList = (projects: Project[]) => {
     clearProjectList();
     projects.forEach((project, idx) => {
-      const newProjectOption = document.createElement("option");
-      newProjectOption.value = idx.toString();
+      const newProjectOption = document.createElement("div");
+      newProjectOption.dataset.index = idx.toString();
       newProjectOption.textContent = project.name;
-      projectSelect.appendChild(newProjectOption);
+      newProjectOption.addEventListener("click", setCurrentProjectIndex);
+      projectList.appendChild(newProjectOption);
     });
   };
 
   const clearProjectList = () => {
-    while (projectSelect.length > 0) {
-      projectSelect.remove(projectSelect.length - 1);
+    while (projectList.firstChild) {
+      projectList.removeChild(projectList.firstChild);
     }
   };
 
   const clearProjectForm = () => {
     projectNameInput.value = "";
   };
+
+  const toggleAddProjectForm = () => {
+    addProjectForm.classList.toggle("hidden");
+  };
+
+  // To-do UI
 
   const buildToDoNode = (todo: ToDo) => {
     const newToDoNode = document.createElement("div");
@@ -96,9 +105,8 @@ export const home = ({
   };
 
   const setCurrentProjectIndex = (e: Event) => {
-    const selectedProject = (<HTMLSelectElement>e.target).value;
+    const selectedProject = (<HTMLSelectElement>e.target).dataset.index;
     handleSetCurrentProject(parseInt(selectedProject));
-    console.log("selcted idx", parseInt(selectedProject));
 
     const currentToDoList = getCurrentToDoList();
     buildToDoList(currentToDoList);
@@ -110,7 +118,8 @@ export const home = ({
     addToDo.addEventListener("click", toggleToDoForm);
     addToDoForm.addEventListener("submit", submitToDo);
     addProjectForm.addEventListener("submit", submitProject);
-    projectSelect.addEventListener("change", setCurrentProjectIndex);
+
+    toggleAddProjectFormButton.addEventListener("click", toggleAddProjectForm);
   };
 
   return { buildHome };

@@ -7,26 +7,17 @@ const App = () => {
   let currentProjectIdx = 0;
   let currentToDoList = projects[currentProjectIdx].getToDos();
 
-  const getCurrentToDoList = () => {
+  const getCurrentProject = () => {
     return currentToDoList;
   };
 
-  const setCurrentToDoList = () => {
+  const setCurrentProject = (idx: number) => {
+    currentProjectIdx = idx;
     currentToDoList = projects[currentProjectIdx].getToDos();
-    console.log("currentToDoList", currentToDoList);
-    console.log("curent project", getCurrentProject().name);
   };
 
   const getProjects = () => {
     return projects;
-  };
-
-  const getCurrentProject = () => {
-    return projects[currentProjectIdx];
-  };
-
-  const setCurrentProjectIdx = (idx: number) => {
-    currentProjectIdx = idx;
   };
 
   const handleSubmitToDo = (description: string) => {
@@ -36,8 +27,7 @@ const App = () => {
 
   const handleSetCurrentProject = (projectIdx: number) => {
     if (projects.length > projectIdx) {
-      setCurrentProjectIdx(projectIdx);
-      setCurrentToDoList();
+      setCurrentProject(projectIdx);
     }
   };
 
@@ -47,7 +37,7 @@ const App = () => {
   };
 
   return {
-    getCurrentToDoList,
+    getCurrentToDoList: getCurrentProject,
     getProjects,
     handleSetCurrentProject,
     handleSubmitToDo,

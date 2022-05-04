@@ -1,21 +1,57 @@
+:root {
+    --main-bg-color: #ff8552;
+    --secondary-bg-color: #e6e6e6;
+    --action-color: #85ffc7;
+    --disabled-color: #297373;
+    --main-color: #39393a;
+}
+
 body {
-    background-color: antiquewhite;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;  
+    margin: 0.4rem;
 }
 
-#main {
+/* Main containers */
+
+.content {
     display: flex;
-    gap: 1rem;
+    flex-direction: row;
 }
 
-#add-project-form {
+.header {
+    width: 100%;
+    height: 40px;
     display: flex;
-    flex-direction: column;
-    width: 30%;
-    min-width: 200px;
+    flex-direction: row;
+    margin: 0.4rem 0 0.2rem;
+    background-color: var(--secondary-bg-color);
+    border-radius: 0.2rem;
 }
 
-#add-project-header {
+.header--projects {
+    flex-grow: 0;
+    width: 200px;
+}
+
+.header--todos {
+    flex-grow: 1;
+}
+
+.header--projects, .header--todos {
     display: flex;
+    align-items: center;
+    padding: 0.2rem 0.4rem;
+}
+
+/* Project Section */
+
+.content--projects {
+    flex-grow: 0;
+    width: 200px;
+    height: 100%;
+    background-color: var(--secondary-bg-color);
 }
 
 #project-name-label {
@@ -25,20 +61,21 @@ body {
 #project-name {
     font-size: 2rem;
     margin: 1rem;
-    background-color: oldlace;
     border: none;
     width: 100%;
 }
 
-#project-name:focus-visible {
-    outline: none;
-    padding: 0;
+/* to do section */
+
+.content--todos {
+    flex-grow: 1;
+    background-color: var(--secondary-bg-color);
+
 }
 
-#add-project {
-    flex-grow: 0;
-    border: none;
-    background: none;
+.list--main {
+    height: 100vh;
+    background-color: var(--secondary-bg-color);
 }
 
 #to-do-list {
@@ -48,7 +85,6 @@ body {
 
 .to-do {
     display: flex;
-    background-color: oldlace;
 }
 
 .hidden {
